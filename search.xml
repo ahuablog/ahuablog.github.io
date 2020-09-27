@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2020kali安装</title>
+    <url>/2020/09/27/kail%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h1>kali</h1>]]></content>
+      <categories>
+        <category>工具类</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>花红的博客</title>
-    <url>/2020/09/27/hello-world/</url>
+    <url>/3000/07/18/hello/</url>
     <content><![CDATA[<p>你好！首先恭喜一下我自己，又有一个人发现了我的博客！我会在这里记录和分享我的学习！要是感兴趣的话就看看吧！也许对你有帮助–喵喵喵</p>
 ]]></content>
       <categories>
@@ -10,6 +21,42 @@
       </categories>
       <tags>
         <tag>Hello</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>burp安装与学习</title>
+    <url>/2020/09/27/burp%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1></h1>]]></content>
+      <categories>
+        <category>工具类</category>
+      </categories>
+      <tags>
+        <tag>burp</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>namp学习</title>
+    <url>/2020/09/27/namp%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1>namp</h1>]]></content>
+      <categories>
+        <category>工具类</category>
+      </categories>
+      <tags>
+        <tag>namp</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQLmap学习</title>
+    <url>/2020/09/27/SQLmap%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1>SQLmap</h1>]]></content>
+      <categories>
+        <category>工具类</category>
+      </categories>
+      <tags>
+        <tag>SQLmap</tag>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>
