@@ -5,12 +5,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Archive: 3000</title>
+    <title>burp证书与代理 - 🌻学习日记</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate" />
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="记录学习,"> 
+    <meta name="description" content="记录学习,插件
+以火狐为例，我们可以通过&#34;FoxyProxy&#34;插件中直接更改代理
+&#34;附件插件&#34;中搜索&#34;FoxyProxy&#34;
+
+
+双击打开，选择&#34;添加&#34;
+
+
+像我这样配置应该不会有问题(用户密码可省略),选择&#34;,"> 
     <meta name="author" content="花红"> 
     <link rel="alternative" href="atom.xml" title="🌻学习日记" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -35,65 +43,101 @@
 <body class="loading">
     <span id="config-title" style="display:none">🌻学习日记</span>
     <div id="loader"></div>
-    <div id="single" class="page">
-    <div id="top">
-        <a class="iconfont icon-left image-icon" href="javascript:history.back()"></a>
-    </div>
-    <div class="section">
-        <div class="article">
-            <div class="main">
-                <div class="content">
-                    <div class="timeline">
-                      <h2 class="timeline-title">归档: 6篇</h2><hr>
-                      
-                      
-                        
-                          <h3 class="timeline-subtitle">3000</h3>
-                        
-                        <div class="timeline-item">
-                          <time>3000-07-18</time>
-                          <a target="_self" href="/3000/07/18/hello/">花红的博客</a>
-                        </div>
-                      
-                        
-                          <h3 class="timeline-subtitle">2020</h3>
-                        
-                        <div class="timeline-item">
-                          <time>2020-10-09</time>
-                          <a target="_self" href="/2020/10/09/burp%E8%AF%81%E4%B9%A6%E4%B8%8E%E4%BB%A3%E7%90%86/">burp证书与代理</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2020-09-27</time>
-                          <a target="_self" href="/2020/09/27/SQLmap%E5%AD%A6%E4%B9%A0/">SQLmap学习</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2020-09-27</time>
-                          <a target="_self" href="/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/">burp安装—Windows</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2020-09-27</time>
-                          <a target="_self" href="/2020/09/27/kali%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">2020kali安装</a>
-                        </div>
-                      
-                        
-                        <div class="timeline-item">
-                          <time>2020-09-27</time>
-                          <a target="_self" href="/2020/09/27/namp%E5%AD%A6%E4%B9%A0/">namp学习</a>
-                        </div>
-                      
-                    </div>
-                </div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
+    <div title="播放/暂停" class="iconfont icon-play"></div>
+    <h3 class="subtitle">burp证书与代理</h3>
+    <div class="social">
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
             </div>
+            <div id="qr"></div>
         </div>
     </div>
+    <div class="scrollbar"></div>
 </div>
 
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">burp证书与代理</h1>
+        <div class="stuff">
+            <span>十月 09, 2020</span>
+            
+  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/burp/" rel="tag">burp</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
+
+        </div>
+        <div class="content markdown">
+            <h3><b>插件</b></h3>
+<h4><b>以火狐为例，我们可以通过"FoxyProxy"插件中直接更改代理</b></h4>
+<h4>"附件插件"中搜索"FoxyProxy"</h4>
+
+<p><img src="01.png" alt="图片藏起来了"></p>
+<h4>双击打开，选择"添加"</h4>
+
+<p><img src="02.png" alt="图片藏起来了"></p>
+<h4>像我这样配置应该不会有问题(用户密码可省略),选择"保存"</h4>
+
+<p><img src="03.png" alt="图片藏起来了"></p>
+<h4>之后要使用burp时，可以通过这里改代理</h4>
+
+<p><img src="04.png" alt="图片藏起来了"></p>
+<h3><b>证书</b></h3>
+<h4>使用插件选择刚设置的代理，浏览器输入"burp.com"或者"127.0.0.1:8080",双击"CA Certificate"下载</h4>
+
+<p><img src="05.png" alt="图片藏起来了"></p>
+<h4>打开"设置",选择"隐私与安全"，最后选择"查看证书"</h4>
+
+<p><img src="06.png" alt="图片藏起来了"></p>
+<h4>导入刚刚下载的证书</h4>
+
+<p><img src="07.png" alt="图片藏起来了"></p>
+<h4>选择"信任",点击确认</h4>
+
+<p><img src="08.png" alt="图片藏起来了"></p>
+<h4><b>至此！你就可以使用"burp"这个强大的工具了！</b></h4>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        
+                            <li title='0' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                        
+                            <li title='1' data-url='http://link.hhtjim.com/163/425570952.mp3'></li>
+                        
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+		data-enable='true'
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 
 <script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
