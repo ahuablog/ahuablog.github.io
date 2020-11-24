@@ -1,212 +1,590 @@
-
 <!DOCTYPE html>
-<html lang="zh_CN" class="loading">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>burp安装—Windows - 🌻学习日记</title>
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate" />
-    <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="记录学习,一、burp安装—Windows
-注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。
-1.查询：
-1java -version
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-2.要是没有的话就去配置JAVA环境，目前并没有,"> 
-    <meta name="author" content="花红"> 
-    <link rel="alternative" href="atom.xml" title="🌻学习日记" type="application/atom+xml"> 
-    <link rel="icon" href="/img/favicon.png"> 
-    
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-    
-<link rel="stylesheet" href="/css/diaspora.css">
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"ahuablog.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
 
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({
-              google_ad_client: "ca-pub-8691406134231910",
-              enable_page_level_ads: true
-         });
-    </script>
-    <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-    </script>
-<meta name="generator" content="Hexo 5.2.0"></head>
+  <meta name="description" content="前言：  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="burp安装—Windows">
+<meta property="og:url" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/index.html">
+<meta property="og:site_name" content="阿花学习日记">
+<meta property="og:description" content="前言：  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/01.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/02.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/03.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/04.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/05.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/07.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/08.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/09.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/10.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/11.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/12.png">
+<meta property="og:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/13.png">
+<meta property="article:published_time" content="2020-09-27T10:38:45.000Z">
+<meta property="article:modified_time" content="2020-11-12T10:55:02.031Z">
+<meta property="article:author" content="阿花の博客">
+<meta property="article:tag" content="burp">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/01.png">
 
-<body class="loading">
-    <span id="config-title" style="display:none">🌻学习日记</span>
-    <div id="loader"></div>
-    <div id="single">
-    <div id="top" style="display: block;">
-    <div class="bar" style="width: 0;"></div>
-    <a class="iconfont icon-home image-icon" href="javascript:;" data-url="http://example.com"></a>
-    <div title="播放/暂停" class="iconfont icon-play"></div>
-    <h3 class="subtitle">burp安装—Windows</h3>
-    <div class="social">
-        <div>
-            <div class="share">
-                <a title="获取二维码" class="iconfont icon-scan" href="javascript:;"></a>
-            </div>
-            <div id="qr"></div>
-        </div>
+<link rel="canonical" href="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>burp安装—Windows | 阿花学习日记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    <div class="scrollbar"></div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">阿花学习日记</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">唯有热爱，能抵挡岁月漫漫</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
 </div>
 
-    <div class="section">
-        <div class="article">
-    <div class='main'>
-        <h1 class="title">burp安装—Windows</h1>
-        <div class="stuff">
-            <span>九月 27, 2020</span>
-            
-  <ul class="post-tags-list" itemprop="keywords"><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/burp/" rel="tag">burp</a></li><li class="post-tags-list-item"><a class="post-tags-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
 
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://ahuablog.com/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="阿花の博客">
+      <meta itemprop="description" content="前路浩浩荡荡，万物皆可期待">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿花学习日记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          burp安装—Windows
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-27 18:38:45" itemprop="dateCreated datePublished" datetime="2020-09-27T18:38:45+08:00">2020-09-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-12 18:55:02" itemprop="dateModified" datetime="2020-11-12T18:55:02+08:00">2020-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">工具类</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/" class="post-meta-item leancloud_visitors" data-flag-title="burp安装—Windows" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
 
         </div>
-        <div class="content markdown">
-            <h2>一、burp安装—Windows</h2>
-<h4><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></h4>
-<h5>1.查询：</h5>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+      </header>
 
-<p><img src="01.png" alt="图片躲起来了"></p>
-<h5>2.要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</h5>
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-<h5>3.软件地址：<注：这是我一直用的，带中文，挺方便的></h5>
+      
+        <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
+<a id="more"></a>
+<p><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></p>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><h2 id="查询是否有JAVA环境"><a href="#查询是否有JAVA环境" class="headerlink" title="查询是否有JAVA环境"></a>查询是否有JAVA环境</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk</span><br></pre></td></tr></table></figure>
-<h5>4.把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h5>
+<p> <img src="01.png" alt="图片躲起来了"></p>
+<p> 要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</p>
+<h2 id="burp下载"><a href="#burp下载" class="headerlink" title="burp下载"></a>burp下载</h3></h2><p> <b>注：这是我一直用的，带中文，挺好用的</b></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk </span><br></pre></td></tr></table></figure>
 
-<p><img src="02.png" alt="图片藏起来了"></p>
-<h5>5.通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h5>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
+<h2 id="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"><a href="#把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我" class="headerlink" title="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"></a>把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h2><p><img src="02.png" alt="图片藏起来了"></p>
+<h2 id="通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”"><a href="#通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”" class="headerlink" title="通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”"></a>通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
 
 <p><img src="03.png" alt="图片藏起来了"><br><img src="04.png" alt="图片藏起来了"></p>
-<h5>6.在"Loader Command"中随意输入，例如"text",点击"run",然后他就跳转到"burpsuite_pro_v2.1.05.jar",选择"I Accept"</h5>
-
-<p><img src="05.png" alt="图片藏起来了"></p>
-<h5>7.将"burp-loader-keygen-2_1_05-Jaky.jar"中的"License"复制到文本框中，并点击"next"</h5>
-
-<p><img src="07.png" alt="图片藏起来了"></p>
-<h5>8.点击"Manual activation"</h5>
-
-<p><img src="08.png" alt="图片藏起来了"></p>
-<h5>9.将"2.Copy the following ... in your browser"中的密钥，复制到"Activation Request"中，"Activation Response"自动弹出密钥，复制到"3.Paste below ... in your browser"中，点击"next"</h5>
-
-<p><img src="09.png" alt="图片藏起来了"></p>
-<h5>10.至此安装基本完成,点击"finish"</h5>
-
-<p><img src="10.png" alt="图片藏起来了"></p>
+<h2 id="在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”"><a href="#在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”" class="headerlink" title="在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”"></a>在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”</h2><p><img src="05.png" alt="图片藏起来了"></p>
+<h2 id="将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”"><a href="#将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”" class="headerlink" title="将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”"></a>将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”</h2><p><img src="07.png" alt="图片藏起来了"></p>
+<h2 id="点击”Manual-activation”"><a href="#点击”Manual-activation”" class="headerlink" title="点击”Manual activation”"></a>点击”Manual activation”</h2><p><img src="08.png" alt="图片藏起来了"></p>
+<h2 id="将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”"><a href="#将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”" class="headerlink" title="将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”"></a>将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”</h2><p><img src="09.png" alt="图片藏起来了"></p>
+<h2 id="至此安装基本完成-点击”finish”"><a href="#至此安装基本完成-点击”finish”" class="headerlink" title="至此安装基本完成,点击”finish”"></a>至此安装基本完成,点击”finish”</h2><p><img src="10.png" alt="图片藏起来了"></p>
 <p><img src="11.png" alt="图片藏起来了"></p>
 <p><img src="12.png" alt="图片藏起来了"></p>
-<h5>11.退出后，点击"burp启动.bat",一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h5>
-
-<p><img src="13.png" alt="图片藏起来了"></p>
-<h5><b>至此安装并汉化完成</b></h5>
-<h4><b><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4>
-            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="http://domain.com/awesome.mp3">
-            </audio>
-            
-        </div>
-        
-    <div id='gitalk-container' class="comment link"
-		data-enable='true'
-        data-ae='false'
-        data-ci=''
-        data-cs=''
-        data-r=''
-        data-o=''
-        data-a=''
-        data-d='false'
-    >查看评论</div>
-
-
+<h2 id="退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"><a href="#退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活" class="headerlink" title="退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"></a>退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h2><p><img src="13.png" alt="图片藏起来了"></p>
+<p><b>至此安装并汉化完成</b></p>
+<h2 id="但是还需要配好证书和浏览器代理才行"><a href="#但是还需要配好证书和浏览器代理才行" class="headerlink" title="但是还需要配好证书和浏览器代理才行"></a><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4></h2>
     </div>
+
+    
+    
+    
+
+<div>
+    
+    <div>
+  
+    <div style="text-align:center;color:#bfbfbf;font-size:22px;">
+      <span>-------- 既是结束 </span>
+      <i class="fa fa-caret-right"></i>
+      <span> 也是开始 --------</span>
+    </div>
+  
+</div>
     
 </div>
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/burp/" rel="tag"><i class="fa fa-tag"></i> burp</a>
+              <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/27/kali%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="prev" title="2020kali安装">
+      <i class="fa fa-chevron-left"></i> 2020kali安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/09/burp%E8%AF%81%E4%B9%A6%E4%B8%8E%E4%BB%A3%E7%90%86/" rel="next" title="burp证书与代理">
+      burp证书与代理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%98%AF%E5%90%A6%E6%9C%89JAVA%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">查询是否有JAVA环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#burp%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.2.</span> <span class="nav-text">burp下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%8A%E5%AE%83%E6%94%BE%E5%88%B0%E8%87%AA%E5%B7%B1%E5%96%9C%E7%88%B1%E7%9A%84%E5%9C%B0%E6%96%B9%E7%84%B6%E5%90%8E%E6%89%93%E5%BC%80%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E2%80%9Ccmd%E2%80%9D%EF%BC%8C%E5%B0%86cmd%E5%AE%9A%E4%BD%8D%E5%88%B0burp%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%AD%E3%80%82%E4%BE%8B%E5%A6%82%E6%88%91"><span class="nav-number">2.3.</span> <span class="nav-text">把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87cmd%E6%89%93%E5%BC%80%E2%80%9Cburp-loader-keygen-2-1-05-Jaky-jar%E2%80%9D"><span class="nav-number">2.4.</span> <span class="nav-text">通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E2%80%9DLoader-Command%E2%80%9D%E4%B8%AD%E9%9A%8F%E6%84%8F%E8%BE%93%E5%85%A5%EF%BC%8C%E4%BE%8B%E5%A6%82%E2%80%9Dtext%E2%80%9D-%E7%82%B9%E5%87%BB%E2%80%9Drun%E2%80%9D-%E7%84%B6%E5%90%8E%E4%BB%96%E5%B0%B1%E8%B7%B3%E8%BD%AC%E5%88%B0%E2%80%9Dburpsuite-pro-v2-1-05-jar%E2%80%9D-%E9%80%89%E6%8B%A9%E2%80%9DI-Accept%E2%80%9D"><span class="nav-number">2.5.</span> <span class="nav-text">在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E2%80%9Dburp-loader-keygen-2-1-05-Jaky-jar%E2%80%9D%E4%B8%AD%E7%9A%84%E2%80%9DLicense%E2%80%9D%E5%A4%8D%E5%88%B6%E5%88%B0%E6%96%87%E6%9C%AC%E6%A1%86%E4%B8%AD%EF%BC%8C%E5%B9%B6%E7%82%B9%E5%87%BB%E2%80%9Dnext%E2%80%9D"><span class="nav-number">2.6.</span> <span class="nav-text">将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E2%80%9DManual-activation%E2%80%9D"><span class="nav-number">2.7.</span> <span class="nav-text">点击”Manual activation”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E2%80%9D2-Copy-the-following-%E2%80%A6-in-your-browser%E2%80%9D%E4%B8%AD%E7%9A%84%E5%AF%86%E9%92%A5%EF%BC%8C%E5%A4%8D%E5%88%B6%E5%88%B0%E2%80%9DActivation-Request%E2%80%9D%E4%B8%AD%EF%BC%8C%E2%80%9DActivation-Response%E2%80%9D%E8%87%AA%E5%8A%A8%E5%BC%B9%E5%87%BA%E5%AF%86%E9%92%A5%EF%BC%8C%E5%A4%8D%E5%88%B6%E5%88%B0%E2%80%9D3-Paste-below-%E2%80%A6-in-your-browser%E2%80%9D%E4%B8%AD%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9Dnext%E2%80%9D"><span class="nav-number">2.8.</span> <span class="nav-text">将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%B3%E6%AD%A4%E5%AE%89%E8%A3%85%E5%9F%BA%E6%9C%AC%E5%AE%8C%E6%88%90-%E7%82%B9%E5%87%BB%E2%80%9Dfinish%E2%80%9D"><span class="nav-number">2.9.</span> <span class="nav-text">至此安装基本完成,点击”finish”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E5%90%8E%EF%BC%8C%E7%82%B9%E5%87%BB%E2%80%9Dburp%E5%90%AF%E5%8A%A8-bat%E2%80%9D-%E4%B8%80%E8%88%AC%E6%83%85%E5%86%B5%E4%B8%8B%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E5%90%AF%E5%8A%A8%EF%BC%8C%E5%B9%B6%E8%BF%9B%E8%A1%8C%E6%B1%89%E5%8C%96%E3%80%82%E4%B8%AA%E5%88%AB%E9%9C%80%E8%A6%81%E9%87%8D%E6%96%B0%E6%BF%80%E6%B4%BB%EF%BC%8C%E8%BF%99%E6%8C%89%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%AD%A5%E9%AA%A4%E9%87%8D%E6%96%B0%E6%BF%80%E6%B4%BB"><span class="nav-number">2.10.</span> <span class="nav-text">退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%86%E6%98%AF%E8%BF%98%E9%9C%80%E8%A6%81%E9%85%8D%E5%A5%BD%E8%AF%81%E4%B9%A6%E5%92%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A3%E7%90%86%E6%89%8D%E8%A1%8C"><span class="nav-number">2.11.</span> <span class="nav-text">但是还需要配好证书和浏览器代理才行</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="阿花の博客"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">阿花の博客</p>
+  <div class="site-description" itemprop="description">前路浩浩荡荡，万物皆可期待</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2020103813号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿花の博客</span>
 </div>
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : '2Y7WeA5HDgoIkdmiELLzwnb8-9Nh9j0Va',
+      appKey     : 'dylidBWCvLJTmmktiCrqWlPT',
+      placeholder: "留言区",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
+
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
-
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
-<script src="/js/plugin.js"></script>
-<script src="/js/typed.js"></script>
-<script src="/js/diaspora.js"></script>
-
-
-<link rel="stylesheet" href="/photoswipe/photoswipe.css">
-<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
-
-
-<script src="/photoswipe/photoswipe.min.js"></script>
-<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
-
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <!--  Controls are self-explanatory. Order can be changed. -->
-                <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
 </html>

@@ -1,74 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>SQLmap学习</title>
-    <url>/2020/09/27/SQLmap%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1>SQLmap</h1>]]></content>
-      <categories>
-        <category>工具类</category>
-      </categories>
-      <tags>
-        <tag>SQLmap</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>burp安装—Windows</title>
-    <url>/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/</url>
-    <content><![CDATA[<h2>一、burp安装—Windows</h2>
-<h4><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></h4>
-<h5>1.查询：</h5>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+    <title>SQLmap笔记</title>
+    <url>/2020/10/14/SQLmap%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>立志成为信安人的我自然也不会放过这样一个好工具！ </p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="SQLmap介绍"><a href="#SQLmap介绍" class="headerlink" title="SQLmap介绍"></a>SQLmap介绍</b></h2></h1><hr>
+<h3><b>A--什么是SQLmap<b></h3>
+<hr>
 
 <p><img src="01.png" alt="图片躲起来了"></p>
-<h5>2.要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</h5>
+<h4>sqlmap是一款命令行界面开源的渗透测试工具(自动化SQL注入)</h4>
+<h5><b>该工具仅支持python2版本语言,用不了python3--亲测无效</b></h5>
+<hr>
+<h3><b>B--SQLmap的功能作用</b></h3>
+<hr>
+<h4 style="color: red">sqlmap可以自动化侦测和实施SQL注入攻击以及渗透数据库服务器</h4>
+<h5><b>判断可注入的参数</b></h5>
+<h5><b>判断可用的SQL注入技术</b></h5>
+<h5><b>识别出数据库</b></h5>
+<h4 style="color: red">sqlmap配有强大的侦测引擎，适用于高级渗透测试用户，不仅可以获得不同数据库的指纹信息，还可以从数据库中提取数据，此外还能够处理潜在的文件系统以及通过数据链接执行系统命令</h4>
+<h5><b>网站用户信息</b></h5>
+<h5><b>网站管理信息</b></h5>
+<h5><b>网站WEBSHELL</b></h5>
+<h4 style="color: red">sqlmap目前支持MySQL、Qracie、PostgreSQL、Microsoft SQL Server、Microsoft Access、IBM DB2、SQLite、Firebird、Sybase和SAP MaxDB等数据库类型。采用五种独特的SQL注入技术，分别是：</h4>
+<h5><b>1.基于布尔(bool)的盲注,即可以根据返回页面判断条件真假的注入</b></h5>
+<h5><b>2.基于时间(time)的盲注,即不能根据页面返回内容判断任何信息,用条件语句查看时间延迟</b></h5>
+<h5><b>3.基于报错(error)注入,即页面会返回错误信息,或者把注入的语句的结果直接返回在页面中</b></h5>
+ <h5><b>4.联合查询(union)注入,可以使用union的情况下的注入</b></h5>
+ <h5><b>4.堆查询注入,可以同时执行多条语句的执行时的注入</b></h5>
+<hr>
+<h3><b>C--该怎么使用SQLmap呢？</b></h3>
+<hr>
+<h4><b>方法一:</b>可以在自己的电脑配置好python2的环境，然后到SQLmap官网下载</h4>
+<h4>因为不推荐这样子做，所以我没有出详细教程</h4>
+<h4><b>方法二:</b>Kali工具包中有已经配置好的SQLmap,建议直接使用。</h4>
+<hr>
 
-<h5>3.软件地址：<注：这是我一直用的，带中文，挺方便的></h5>
+<p><img src="/img/03.jpg" alt="图片藏起来了"></p>
+<h2><b>∶ SQLmap注入检测</b></h2>
+<hr>
+<h3><b>三种请求类型注入探测</b></h3>
+<hr>
+<h3><b>1--GET方式的SQL注入探测</b></h3>
+<hr>
+<h4><b>在url链接中显示并传输数据的方式就是get方式</b></h4>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk</span><br></pre></td></tr></table></figure>
-<h5>4.把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h5>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注入检测语句： sqlmap -u &quot;url&quot;</span><br></pre></td></tr></table></figure>
 
-<p><img src="02.png" alt="图片藏起来了"></p>
-<h5>5.通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h5>
+<h4><b>对于get的请求,相对简单，直接指定目标</b></h4>
+<hr>
+<h3><b>2--POST方式的SQL注入探测</b></h3>
+<hr>
+<h4><b>与GET方式相似，但管道不同，需要抓包才可以看见</b></h4>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注入检测语句： sqlmap -u &quot;url&quot; --date &quot;POST数据&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3><b>3--Cookie方式的SQL注入探测</b></h3>
+<hr>
 
-<p><img src="03.png" alt="图片藏起来了"><br><img src="04.png" alt="图片藏起来了"></p>
-<h5>6.在"Loader Command"中随意输入，例如"text",点击"run",然后他就跳转到"burpsuite_pro_v2.1.05.jar",选择"I Accept"</h5>
-
-<p><img src="05.png" alt="图片藏起来了"></p>
-<h5>7.将"burp-loader-keygen-2_1_05-Jaky.jar"中的"License"复制到文本框中，并点击"next"</h5>
-
-<p><img src="07.png" alt="图片藏起来了"></p>
-<h5>8.点击"Manual activation"</h5>
-
-<p><img src="08.png" alt="图片藏起来了"></p>
-<h5>9.将"2.Copy the following ... in your browser"中的密钥，复制到"Activation Request"中，"Activation Response"自动弹出密钥，复制到"3.Paste below ... in your browser"中，点击"next"</h5>
-
-<p><img src="09.png" alt="图片藏起来了"></p>
-<h5>10.至此安装基本完成,点击"finish"</h5>
-
-<p><img src="10.png" alt="图片藏起来了"></p>
-<p><img src="11.png" alt="图片藏起来了"></p>
-<p><img src="12.png" alt="图片藏起来了"></p>
-<h5>11.退出后，点击"burp启动.bat",一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h5>
-
-<p><img src="13.png" alt="图片藏起来了"></p>
-<h5><b>至此安装并汉化完成</b></h5>
-<h4><b><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4>]]></content>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">注入检测语句： sqlmap -u &quot;url&quot; --coolie &quot;cookie数据&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 style="text-align: center;"><b>未完待续~</b></h2>]]></content>
       <categories>
-        <category>工具类</category>
+        <category>SQLmap</category>
       </categories>
       <tags>
-        <tag>web</tag>
-        <tag>burp</tag>
+        <tag>SQL注入</tag>
       </tags>
   </entry>
   <entry>
     <title>burp证书与代理</title>
     <url>/2020/10/09/burp%E8%AF%81%E4%B9%A6%E4%B8%8E%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<h3><b>插件</b></h3>
-<h4><b>以火狐为例，我们可以通过"FoxyProxy"插件中直接更改代理</b></h4>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>这是对burp需要的证书和代理说明，burp安装见<a href="/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/">“burp安装—Windows”</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h4><b>以火狐为例，我们可以通过"FoxyProxy"插件中直接更改代理</b></h4>
 <h4>"附件插件"中搜索"FoxyProxy"</h4>
 
 <p><img src="01.png" alt="图片藏起来了"></p>
@@ -99,26 +111,127 @@
         <category>工具类</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>burp</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
-    <title>花红的博客</title>
-    <url>/3000/07/18/hello/</url>
-    <content><![CDATA[<p>你好！首先恭喜一下我自己，又有一个人发现了我的博客！我会在这里记录和分享我的学习！要是感兴趣的话就看看吧！也许对你有帮助–喵喵喵</p>
-]]></content>
+    <title>burp安装—Windows</title>
+    <url>/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/</url>
+    <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
+<a id="more"></a>
+<p><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></p>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><h2 id="查询是否有JAVA环境"><a href="#查询是否有JAVA环境" class="headerlink" title="查询是否有JAVA环境"></a>查询是否有JAVA环境</h2> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p> <img src="01.png" alt="图片躲起来了"></p>
+<p> 要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</p>
+<h2 id="burp下载"><a href="#burp下载" class="headerlink" title="burp下载"></a>burp下载</h3></h2><p> <b>注：这是我一直用的，带中文，挺好用的</b></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk </span><br></pre></td></tr></table></figure>
+
+<h2 id="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"><a href="#把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我" class="headerlink" title="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"></a>把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h2><p><img src="02.png" alt="图片藏起来了"></p>
+<h2 id="通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”"><a href="#通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”" class="headerlink" title="通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”"></a>通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="03.png" alt="图片藏起来了"><br><img src="04.png" alt="图片藏起来了"></p>
+<h2 id="在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”"><a href="#在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”" class="headerlink" title="在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”"></a>在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”</h2><p><img src="05.png" alt="图片藏起来了"></p>
+<h2 id="将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”"><a href="#将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”" class="headerlink" title="将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”"></a>将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”</h2><p><img src="07.png" alt="图片藏起来了"></p>
+<h2 id="点击”Manual-activation”"><a href="#点击”Manual-activation”" class="headerlink" title="点击”Manual activation”"></a>点击”Manual activation”</h2><p><img src="08.png" alt="图片藏起来了"></p>
+<h2 id="将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”"><a href="#将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”" class="headerlink" title="将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”"></a>将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”</h2><p><img src="09.png" alt="图片藏起来了"></p>
+<h2 id="至此安装基本完成-点击”finish”"><a href="#至此安装基本完成-点击”finish”" class="headerlink" title="至此安装基本完成,点击”finish”"></a>至此安装基本完成,点击”finish”</h2><p><img src="10.png" alt="图片藏起来了"></p>
+<p><img src="11.png" alt="图片藏起来了"></p>
+<p><img src="12.png" alt="图片藏起来了"></p>
+<h2 id="退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"><a href="#退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活" class="headerlink" title="退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"></a>退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h2><p><img src="13.png" alt="图片藏起来了"></p>
+<p><b>至此安装并汉化完成</b></p>
+<h2 id="但是还需要配好证书和浏览器代理才行"><a href="#但是还需要配好证书和浏览器代理才行" class="headerlink" title="但是还需要配好证书和浏览器代理才行"></a><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4></h2>]]></content>
       <categories>
-        <category>开头语</category>
+        <category>工具类</category>
       </categories>
       <tags>
-        <tag>Hello</tag>
+        <tag>burp</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL注入</title>
+    <url>/2020/10/18/SQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>SQL注入就是指Web应用程序对用户输入数据的合法性没有判断，前端传入后端的参数是攻击者可控的，并且参数带入数据库查询，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><ul>
+<li><p>参数用户可控：前端传入后端的参数内容是用户可以控制的。</p>
+</li>
+<li><p>参数带入数据库查询：传入的参数拼接到SQL语句，且带入数据库查询。</p>
+<p>当传入的ID参数为1’时，数据库执行的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from user where id &#x3D; 1&#39;</span><br></pre></td></tr></table></figure>
+<p>这不符合数据库语法规范，所有会报错。当传入的ID参数为and 1=1时，执行的SQL语句如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *from users where id &#x3D; 1 and 1&#x3D;1</span><br></pre></td></tr></table></figure>
+<p>因为1=1为真，且where语句<code>id=1</code>也为真，所以页面会返回与id=1相同的结果。<br>当传入的ID参数为<code>and 1=2</code>时，由于1=2不成立，所以返回假，页面就会返回与id=1不同的结果。<br>由此可以初步判断ID参数存在SQL注入漏洞，攻击者可以进一步拼接SQL语句进行攻击，致使数据库信息泄露，甚至进一步获取服务器权限等。</p>
+</li>
+</ul>
+<h1 id="与MySQL注入相关的知识点"><a href="#与MySQL注入相关的知识点" class="headerlink" title="与MySQL注入相关的知识点"></a>与MySQL注入相关的知识点</h1><p><strong>在MySQL5.0版本后，MySQL默认在数据库中存放一个“information_schema”的数据库</strong></p>
+<h2 id="该库有三表，一定要牢记"><a href="#该库有三表，一定要牢记" class="headerlink" title="该库有三表，一定要牢记"></a>该库有三表，一定要牢记</h2><ul>
+<li><strong>SCHEMATA表</strong><br>存储该用户创建的所有数据库的库名。我们需要记住该表中记录数据库库名的字段名为<code>SCHEMA_NAME</code></li>
+<li><strong>TABLES</strong><br>存储该用户创建的所有数据库的库名和表名，如图4-2所示。我们需要记住该表中记录数据库库名和表名的字段名分别为<code>TABLE_SCHEMA</code>和<code>TABLE_NAME</code></li>
+<li><strong>COLUMNS</strong><br>存储还用户的所有数据库的库名、表名和字段名，我们需要记住该表中记录数据库库名、表名和字段名的字段名为<code>TABLE_SCHEMA</code>、<code>TABLE_NAME</code>和<code>COLUMN_NAME</code>。</li>
+</ul>
+<h2 id="常用的MySQL查询语句和函数如下所示"><a href="#常用的MySQL查询语句和函数如下所示" class="headerlink" title="常用的MySQL查询语句和函数如下所示"></a>常用的MySQL查询语句和函数如下所示</h2><ol>
+<li>MySQL查询语句<br>在不知道任何条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名</code><br>在知道一条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件的字段名=&#39;已知条件的值&#39;</code><br>在知道两条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件1的字段名=&#39;已知条件1的值&#39; AND 已知条件2的字段名=&#39;已知条件2的值&#39;</code></li>
+<li>limit的用法<br>limit的使用格式为limit m,n，其中m是指记录开始的位置，从0开始，表示第一条记录；n是指取n条记录。<br>例如<code>limit 0,1</code>表示从第一条记录开始，取一条记录。</li>
+<li>需要记住的几个函数<ul>
+<li>database(): 当前网站使用的数据库。</li>
+<li>version(): 当前MySQL的版本。</li>
+<li>user(): 当前MySQL的用户。</li>
+</ul>
+</li>
+<li>注释符<br>在MySQL中，常见注释符的表达方式：<code>#</code>或<code>--空格</code>或<code>/**/</code>。</li>
+<li>内联注释<br>内联注释的形式:<code>/*!code*/</code>。内联注释可以用于整个SQL语句中，用来执行我们的SQL语句，如<br><code>index.php?id=15 /*!UNION*/ /*!SELECT*/ 1,2,3。</code></li>
+</ol>
+<hr>]]></content>
+      <categories>
+        <category>web漏洞</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>szsec-2020-萌新篇</title>
+    <url>/2030/10/17/szsec-2020-%E8%90%8C%E6%96%B0%E7%AF%87/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p><strong>首先，感谢大家对SZSEC的支持，为了帮助大家更好的入门，现在整理材料如下</strong><br> <a href="https://note.youdao.com/ynoteshare1/index.html?id=61bf5e8028ed099753c92823af90fbe5&type=note">师兄大作-CTF入门介绍</a><br> <a href="https://adworld.xctf.org.cn/task">CTF做题网站-攻防世界</a><br> <a href="https://ctf.bugku.com/">CTF做题网站-bug库</a><br> <strong>还有更多等待你的发现…</strong></p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+
+<h1 id="另外！下面是老萌新们的建议，望采纳"><a href="#另外！下面是老萌新们的建议，望采纳" class="headerlink" title="另外！下面是老萌新们的建议，望采纳"></a>另外！下面是老萌新们的建议，望采纳</h1><ol>
+<li>做ctf题是最好使用火狐浏览器或者谷歌浏览器</li>
+<li>入门可以选择性练习misc，web类题目。</li>
+<li>要学习编程二进制类的同学可以选择pwn和reverse题目</li>
+<li>想要接触解码类题目可以选择crypto类题目。</li>
+<li>五种类型的题目都可以做，不过主攻的方向不同涉及的知识面不同。<hr>
+
+</li>
+</ol>
+<h1 id="怎么做web题呢？"><a href="#怎么做web题呢？" class="headerlink" title="怎么做web题呢？"></a>怎么做web题呢？</h1><p>在ctf比赛中，web为最重要的组成部分。<br>题目在浏览器之中都能够找到答案，一开始不会做，可以边在浏览器中边找资料边做，遇到不会的知识点或者看不懂的地方也可以在浏览器中查找，做题需要用到的软件可以在网上下载到。东墩的同学，师兄会找个时间过去，到时候可以将一些工具分享给大家，在本部计网的同学可以拿U盘来安全室找师兄拷贝工具，不懂的问题可以在群里提问。ctf只能通过不断做题的积累来得到提升。</p>
+<hr>
+
+<h1 id="最后："><a href="#最后：" class="headerlink" title="最后："></a>最后：</h1><p> <strong>各位：前程似锦!</strong></p>
+]]></content>
+      <categories>
+        <category>导入篇</category>
+      </categories>
+      <tags>
+        <tag>导入篇</tag>
       </tags>
   </entry>
   <entry>
     <title>2020kali安装</title>
     <url>/2020/09/27/kali%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p><img src="/img/01.jpg" alt="躲起来了"><br><b>前言：kali作为信安之路的最强帮手，内置了许多的黑客工具，学习怎么安装，自然也是尤其重要，这里主要讲解的是kali在虚拟机的安装，并不推荐安装在物理机上。切记——以白不以黑。</b></p>
+    <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>kali作为信安之路的最强帮手，内置了许多的黑客工具，学习怎么安装，自然也是尤其重要，这里主要讲解的是kali在虚拟机的安装，并不推荐安装在物理机上。切记——以白不以黑。</p>
+<a id="more"></a>
+
 <h3><b>下载镜像与vmware workstation</b></h3>
 这个很基础，应该都懂，大概。
 <h3><b>开始安装</b></h3>
@@ -200,15 +313,79 @@
       </tags>
   </entry>
   <entry>
-    <title>namp学习</title>
-    <url>/2020/09/27/namp%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1>namp</h1>]]></content>
-      <categories>
-        <category>工具类</category>
-      </categories>
+    <title>OWASP TOP 10</title>
+    <url>/2020/11/08/top10/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p><strong>本学习笔记主要出自OWASP中国官网的学习！<a href="http://www.owasp.org.cn/owasp-project/OWASPTop102017RC1V1.2.pdf">官网地址</a></strong><br>虽然人比较懒，但是真的有在认真学！</p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+
+<h1 id="什么是OWASP"><a href="#什么是OWASP" class="headerlink" title="什么是OWASP"></a><a href="https://baike.baidu.com/item/%E5%BC%80%E6%94%BE%E5%BC%8FWeb%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AE%89%E5%85%A8%E9%A1%B9%E7%9B%AE/17610864?fromtitle=OWASP&fromid=6028410&fr=aladdin">什么是OWASP</a></h1><p>开放式Web应用程序安全项目（OWASP）是一个非营利组织，不附属于任何企业或财团。因此，由OWASP提供和开发的所有设施和文件都不受商业因素的影响。OWASP支持商业安全技术的合理使用，它有一个论坛，在论坛里信息技术专业人员可以发表和传授专业知识和技能。</p>
+<hr>
+<h1 id="漏洞合集"><a href="#漏洞合集" class="headerlink" title="漏洞合集"></a>漏洞合集</h1><h2 id="TOP1-注入"><a href="#TOP1-注入" class="headerlink" title="TOP1-注入"></a>TOP1-注入</h2><h3 id="简单介绍："><a href="#简单介绍：" class="headerlink" title="简单介绍："></a>简单介绍：</b></h4></h3><p> 将不受信任的数据作为命令或查询的一部分发送到解析器时，会产生诸如SQL注入、 NoSQL注入、OS注入和LDAP注入的注入缺陷。攻击者的恶意数据可以诱使解析器在没有适当授权的   情况下执行非预期命令或访问数据。</p>
+<h3 id="可利用性：⭐⭐⭐"><a href="#可利用性：⭐⭐⭐" class="headerlink" title="可利用性：⭐⭐⭐"></a>可利用性：⭐⭐⭐</b></h4></h3><p> 几乎任何数据源偶能成为注入载体，包括环境变量、所有类型的用户、参数、外部和内部WEB服务。当攻击者可以向解释器发送恶意数据是，注入漏洞产生。</p>
+<h3 id="普遍性：⭐⭐"><a href="#普遍性：⭐⭐" class="headerlink" title="普遍性：⭐⭐"></a>普遍性：⭐⭐</b></h4></h3><p> 注入漏洞十分普遍，尤其是在遗漏代码中。注入漏洞通常能在SQL、LDAP、XPath或是NOSQL查询语句、OS命令、XML解释器、SMTP包头、表达式语句及ORM查询语句中找到。</p>
+<h3 id="可检测性：⭐⭐⭐"><a href="#可检测性：⭐⭐⭐" class="headerlink" title="可检测性：⭐⭐⭐"></a>可检测性：⭐⭐⭐</b></h4></h3><p> 注入漏洞很容易通过代码审查发现。扫描器和模糊测试工具可以帮助攻击者找到这些漏洞。</p>
+<h3 id="技术：⭐⭐⭐"><a href="#技术：⭐⭐⭐" class="headerlink" title="技术：⭐⭐⭐"></a>技术：⭐⭐⭐</b></h4></h3><p> 注入漏洞能导致数据丢失、破坏或泄露给无授权方，缺乏可审计性或是拒绝服务。注入有时甚至能导致主机被完全接管。</p>
+<h3 id="什么情况存在漏洞："><a href="#什么情况存在漏洞：" class="headerlink" title="什么情况存在漏洞："></a>什么情况存在漏洞：</h3><p> *<em>当你的应用在如下时点时，是脆弱的并易受到攻击**</em></p>
+<ul>
+<li>用户提供的数据没有经过应用程序的验证、过滤或净化。</li>
+<li>动态查询语句或非参数化的调用，在没有上下文感知转义的情况下，被用于解释器。</li>
+<li>恶意数据直接被使用或连接，诸如SQL语句或命令在动态查询语句、命令或存储过程中包含结构和恶意数据。</li>
+</ul>
+<hr>
+<h2 id="TOP2-失效的身份认证和会话管理"><a href="#TOP2-失效的身份认证和会话管理" class="headerlink" title="TOP2-失效的身份认证和会话管理"></a>TOP2-失效的身份认证和会话管理</h2><h3 id="简单介绍：-1"><a href="#简单介绍：-1" class="headerlink" title="简单介绍："></a>简单介绍：</h3><p> 与身份认证和回话管理相关的应用程序功能往往得不到正确的实现，这就导致了攻击者攻击破坏密码、密钥、会话令牌或攻击其他的漏洞去冒充其他用户的身份（暂时或永久的）。</p>
+<h3 id="如何防止？"><a href="#如何防止？" class="headerlink" title="如何防止？"></a>如何防止？</h3><p><strong>对企业最主要的建议是让开发人员使用如下资源</strong></p>
+<ul>
+<li>一套单一的强大的认证和会话管理控制系统。这套控制系统应：<ol>
+<li>满足OWASP的应用程序安全验证标准（ASVS）中制定的所以认证和会话管理的要求。</li>
+<li>具有简单的开发界面。ESAPI认证器和用户API是可以仿照、使用或扩展的好范例。</li>
+</ol>
+</li>
+<li>企业同样也要做出巨大努力来避免跨站漏洞，因为这漏洞可盗窃用户会话ID。</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>web漏洞学习总结</title>
+    <url>/2020/10/16/web%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>突然有了把学习过的漏洞总结出来的想法，于是便有了这一篇，不过还是有很多地方没有补充完成。懒癌晚期了呀！</p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+<a href=""><h3><b>XSS漏洞(没写)</b></h3></a>
+<h4 style="font-family: 宋体"><b>形成XSS漏洞的主要原因：</b>程序对输入和输出的控制不够严格，导致“精心构造”的脚本输入后，在输到前端是被浏览器当作有效代码执行从而产生危害。</h4>
+
+<hr>
+<a href=""><h3><b>SQL注入(还是没写)</h3></a>
+<h4 style="font-family: 宋体"><b>形成SQL注入漏洞的主要原因：</b>程序开发过程中不注意规范书写sql语句和对特殊字符进行过滤，导致客户端可以通过全局变量POST和GET提交一些sql语句正常执行。</h4>
+
+<hr>
+<a href=""><h3><b>CSRF(下次也不一定)</b></h3></a>
+<h4 style="font-family: 宋体"><b>CSRF攻击的原理：</b>在跨站请求伪造（CSRF）攻击里面，攻击者通过用户的浏览器来注入额外的网络请求，来破坏一个网站会话的完整性。而浏览器的安全策略是允许当前页面发送到任何地址的请求，因此也就意味着当用户在浏览他/她无法控制的资源时，攻击者可以控制页面的内容来控制浏览器发送它精心构造的请求。</h4>
+
+<hr>
+<a href=""><h3><b>SSRF(就不写气不气)</b></h3></a>
+<h4 style="font-family: 宋体"><b>形成SSRF漏洞的主要原因：</b>由于服务端提供了从其他服务器应用获取数据的功能，且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，文档，等等。</h4>
+
+<hr>
+<a href=""><h3><b>文件上传(下次一定)</b></h3></a>
+<h4 style="font-family: 宋体"><b>形成文件上传漏洞的主要原因：</b>没有对上传的任何文件做过滤安全校验</h4>
+
+<hr>
+<a href=""><h3><b>文件包含(不着急不着急)</b></h3></a>
+<h4 style="font-family: 宋体"><b>形成文件包含漏洞的主要原因：</b>文件包含函数加载的参数没有经过过滤或者严格的定义，可以被用户控制，包含其他恶意文件，导致了执行了非预期的代码。</h4>
+
+<hr>
+<a href=""><h3><b>文件下载(不写了就这样吧)</b></h3></a>
+<h4 style="font-family: 宋体"><b>形成文件下载漏洞的主要原因：</b>很多网站由于业务需求，往往需要提供文件(附件)下载的功能块，但是如果对下载的文件没有做限制，直接通过绝对路径对其文件进行下载，那么，恶意用户就可以利用这种方式下载服务器的敏感文件，对服务器进行进一步的威胁和攻击。</h4>
+]]></content>
       <tags>
         <tag>web</tag>
-        <tag>namp</tag>
       </tags>
   </entry>
 </search>
