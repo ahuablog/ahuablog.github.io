@@ -1,6 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SQL注入</title>
+    <url>/2020/10/18/SQL%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>SQL注入就是指Web应用程序对用户输入数据的合法性没有判断，前端传入后端的参数是攻击者可控的，并且参数带入数据库查询，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><ul>
+<li><p>参数用户可控：前端传入后端的参数内容是用户可以控制的。</p>
+</li>
+<li><p>参数带入数据库查询：传入的参数拼接到SQL语句，且带入数据库查询。</p>
+<p>当传入的ID参数为1’时，数据库执行的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from user where id &#x3D; 1&#39;</span><br></pre></td></tr></table></figure>
+<p>这不符合数据库语法规范，所有会报错。当传入的ID参数为and 1=1时，执行的SQL语句如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *from users where id &#x3D; 1 and 1&#x3D;1</span><br></pre></td></tr></table></figure>
+<p>因为1=1为真，且where语句<code>id=1</code>也为真，所以页面会返回与id=1相同的结果。<br>当传入的ID参数为<code>and 1=2</code>时，由于1=2不成立，所以返回假，页面就会返回与id=1不同的结果。<br>由此可以初步判断ID参数存在SQL注入漏洞，攻击者可以进一步拼接SQL语句进行攻击，致使数据库信息泄露，甚至进一步获取服务器权限等。</p>
+</li>
+</ul>
+<h1 id="与MySQL注入相关的知识点"><a href="#与MySQL注入相关的知识点" class="headerlink" title="与MySQL注入相关的知识点"></a>与MySQL注入相关的知识点</h1><p><strong>在MySQL5.0版本后，MySQL默认在数据库中存放一个“information_schema”的数据库</strong></p>
+<h2 id="该库有三表，一定要牢记"><a href="#该库有三表，一定要牢记" class="headerlink" title="该库有三表，一定要牢记"></a>该库有三表，一定要牢记</h2><ul>
+<li><strong>SCHEMATA表</strong><br>存储该用户创建的所有数据库的库名。我们需要记住该表中记录数据库库名的字段名为<code>SCHEMA_NAME</code></li>
+<li><strong>TABLES</strong><br>存储该用户创建的所有数据库的库名和表名，如图4-2所示。我们需要记住该表中记录数据库库名和表名的字段名分别为<code>TABLE_SCHEMA</code>和<code>TABLE_NAME</code></li>
+<li><strong>COLUMNS</strong><br>存储还用户的所有数据库的库名、表名和字段名，我们需要记住该表中记录数据库库名、表名和字段名的字段名为<code>TABLE_SCHEMA</code>、<code>TABLE_NAME</code>和<code>COLUMN_NAME</code>。</li>
+</ul>
+<h2 id="常用的MySQL查询语句和函数如下所示"><a href="#常用的MySQL查询语句和函数如下所示" class="headerlink" title="常用的MySQL查询语句和函数如下所示"></a>常用的MySQL查询语句和函数如下所示</h2><ol>
+<li>MySQL查询语句<br>在不知道任何条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名</code><br>在知道一条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件的字段名=&#39;已知条件的值&#39;</code><br>在知道两条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件1的字段名=&#39;已知条件1的值&#39; AND 已知条件2的字段名=&#39;已知条件2的值&#39;</code></li>
+<li>limit的用法<br>limit的使用格式为limit m,n，其中m是指记录开始的位置，从0开始，表示第一条记录；n是指取n条记录。<br>例如<code>limit 0,1</code>表示从第一条记录开始，取一条记录。</li>
+<li>需要记住的几个函数<ul>
+<li>database(): 当前网站使用的数据库。</li>
+<li>version(): 当前MySQL的版本。</li>
+<li>user(): 当前MySQL的用户。</li>
+</ul>
+</li>
+<li>注释符<br>在MySQL中，常见注释符的表达方式：<code>#</code>或<code>--空格</code>或<code>/**/</code>。</li>
+<li>内联注释<br>内联注释的形式:<code>/*!code*/</code>。内联注释可以用于整个SQL语句中，用来执行我们的SQL语句，如<br><code>index.php?id=15 /*!UNION*/ /*!SELECT*/ 1,2,3。</code></li>
+</ol>
+<hr>]]></content>
+      <categories>
+        <category>web漏洞</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>burp安装—Windows</title>
+    <url>/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/</url>
+    <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
+<a id="more"></a>
+<p><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></p>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><h2 id="查询是否有JAVA环境"><a href="#查询是否有JAVA环境" class="headerlink" title="查询是否有JAVA环境"></a>查询是否有JAVA环境</h2> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p> <img src="01.png" alt="图片躲起来了"></p>
+<p> 要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</p>
+<h2 id="burp下载"><a href="#burp下载" class="headerlink" title="burp下载"></a>burp下载</h3></h2><p> <b>注：这是我一直用的，带中文，挺好用的</b></p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk </span><br></pre></td></tr></table></figure>
+
+<h2 id="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"><a href="#把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我" class="headerlink" title="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"></a>把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h2><p><img src="02.png" alt="图片藏起来了"></p>
+<h2 id="通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”"><a href="#通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”" class="headerlink" title="通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”"></a>通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="03.png" alt="图片藏起来了"><br><img src="04.png" alt="图片藏起来了"></p>
+<h2 id="在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”"><a href="#在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”" class="headerlink" title="在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”"></a>在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”</h2><p><img src="05.png" alt="图片藏起来了"></p>
+<h2 id="将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”"><a href="#将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”" class="headerlink" title="将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”"></a>将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”</h2><p><img src="07.png" alt="图片藏起来了"></p>
+<h2 id="点击”Manual-activation”"><a href="#点击”Manual-activation”" class="headerlink" title="点击”Manual activation”"></a>点击”Manual activation”</h2><p><img src="08.png" alt="图片藏起来了"></p>
+<h2 id="将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”"><a href="#将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”" class="headerlink" title="将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”"></a>将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”</h2><p><img src="09.png" alt="图片藏起来了"></p>
+<h2 id="至此安装基本完成-点击”finish”"><a href="#至此安装基本完成-点击”finish”" class="headerlink" title="至此安装基本完成,点击”finish”"></a>至此安装基本完成,点击”finish”</h2><p><img src="10.png" alt="图片藏起来了"></p>
+<p><img src="11.png" alt="图片藏起来了"></p>
+<p><img src="12.png" alt="图片藏起来了"></p>
+<h2 id="退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"><a href="#退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活" class="headerlink" title="退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"></a>退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h2><p><img src="13.png" alt="图片藏起来了"></p>
+<p><b>至此安装并汉化完成</b></p>
+<h2 id="但是还需要配好证书和浏览器代理才行"><a href="#但是还需要配好证书和浏览器代理才行" class="headerlink" title="但是还需要配好证书和浏览器代理才行"></a><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4></h2>]]></content>
+      <categories>
+        <category>工具类</category>
+      </categories>
+      <tags>
+        <tag>burp</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQLmap笔记</title>
     <url>/2020/10/14/SQLmap%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
@@ -116,117 +196,6 @@
       </tags>
   </entry>
   <entry>
-    <title>burp安装—Windows</title>
-    <url>/2020/09/27/burp%E5%AE%89%E8%A3%85%E2%80%94Windows/</url>
-    <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>  Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
-<a id="more"></a>
-<p><b>注：安装前要先查系统是否有JAVA环境，没有就要先安装JAVA环境。</b></p>
-<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><h2 id="查询是否有JAVA环境"><a href="#查询是否有JAVA环境" class="headerlink" title="查询是否有JAVA环境"></a>查询是否有JAVA环境</h2> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-<p> <img src="01.png" alt="图片躲起来了"></p>
-<p> 要是没有的话就去配置JAVA环境，目前并没有写JAVA环境教程，先看看其他人的</p>
-<h2 id="burp下载"><a href="#burp下载" class="headerlink" title="burp下载"></a>burp下载</h3></h2><p> <b>注：这是我一直用的，带中文，挺好用的</b></p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">百度网盘：</span><br><span class="line">https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;1i9otT2KxTD7-mj0KuG8O0w</span><br><span class="line">提取码：</span><br><span class="line">ahbk </span><br></pre></td></tr></table></figure>
-
-<h2 id="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"><a href="#把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我" class="headerlink" title="把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我"></a>把它放到自己喜爱的地方然后打开命令提示符“cmd”，将cmd定位到burp文件夹中。例如我</h2><p><img src="02.png" alt="图片藏起来了"></p>
-<h2 id="通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”"><a href="#通过cmd打开“burp-loader-keygen-2-1-05-Jaky-jar”" class="headerlink" title="通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”"></a>通过cmd打开“burp-loader-keygen-2_1_05-Jaky.jar”</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">java -jar burp-loader-keygen-2_1_05-Jaky.jar</span><br></pre></td></tr></table></figure>
-
-<p><img src="03.png" alt="图片藏起来了"><br><img src="04.png" alt="图片藏起来了"></p>
-<h2 id="在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”"><a href="#在”Loader-Command”中随意输入，例如”text”-点击”run”-然后他就跳转到”burpsuite-pro-v2-1-05-jar”-选择”I-Accept”" class="headerlink" title="在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”"></a>在”Loader Command”中随意输入，例如”text”,点击”run”,然后他就跳转到”burpsuite_pro_v2.1.05.jar”,选择”I Accept”</h2><p><img src="05.png" alt="图片藏起来了"></p>
-<h2 id="将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”"><a href="#将”burp-loader-keygen-2-1-05-Jaky-jar”中的”License”复制到文本框中，并点击”next”" class="headerlink" title="将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”"></a>将”burp-loader-keygen-2_1_05-Jaky.jar”中的”License”复制到文本框中，并点击”next”</h2><p><img src="07.png" alt="图片藏起来了"></p>
-<h2 id="点击”Manual-activation”"><a href="#点击”Manual-activation”" class="headerlink" title="点击”Manual activation”"></a>点击”Manual activation”</h2><p><img src="08.png" alt="图片藏起来了"></p>
-<h2 id="将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”"><a href="#将”2-Copy-the-following-…-in-your-browser”中的密钥，复制到”Activation-Request”中，”Activation-Response”自动弹出密钥，复制到”3-Paste-below-…-in-your-browser”中，点击”next”" class="headerlink" title="将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”"></a>将”2.Copy the following … in your browser”中的密钥，复制到”Activation Request”中，”Activation Response”自动弹出密钥，复制到”3.Paste below … in your browser”中，点击”next”</h2><p><img src="09.png" alt="图片藏起来了"></p>
-<h2 id="至此安装基本完成-点击”finish”"><a href="#至此安装基本完成-点击”finish”" class="headerlink" title="至此安装基本完成,点击”finish”"></a>至此安装基本完成,点击”finish”</h2><p><img src="10.png" alt="图片藏起来了"></p>
-<p><img src="11.png" alt="图片藏起来了"></p>
-<p><img src="12.png" alt="图片藏起来了"></p>
-<h2 id="退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"><a href="#退出后，点击”burp启动-bat”-一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活" class="headerlink" title="退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活"></a>退出后，点击”burp启动.bat”,一般情况下可以直接启动，并进行汉化。个别需要重新激活，这按上面的步骤重新激活</h2><p><img src="13.png" alt="图片藏起来了"></p>
-<p><b>至此安装并汉化完成</b></p>
-<h2 id="但是还需要配好证书和浏览器代理才行"><a href="#但是还需要配好证书和浏览器代理才行" class="headerlink" title="但是还需要配好证书和浏览器代理才行"></a><a href="/2020/10/09/burp证书与代理">但是还需要配好证书和浏览器代理才行</a></b></h4></h2>]]></content>
-      <categories>
-        <category>工具类</category>
-      </categories>
-      <tags>
-        <tag>burp</tag>
-        <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL注入</title>
-    <url>/2020/10/18/SQL%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>SQL注入就是指Web应用程序对用户输入数据的合法性没有判断，前端传入后端的参数是攻击者可控的，并且参数带入数据库查询，攻击者可以通过构造不同的SQL语句来实现对数据库的任意操作。</p>
-</blockquote>
-<a id="more"></a>
-
-<h1 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h1><ul>
-<li><p>参数用户可控：前端传入后端的参数内容是用户可以控制的。</p>
-</li>
-<li><p>参数带入数据库查询：传入的参数拼接到SQL语句，且带入数据库查询。</p>
-<p>当传入的ID参数为1’时，数据库执行的代码如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from user where id &#x3D; 1&#39;</span><br></pre></td></tr></table></figure>
-<p>这不符合数据库语法规范，所有会报错。当传入的ID参数为and 1=1时，执行的SQL语句如下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select *from users where id &#x3D; 1 and 1&#x3D;1</span><br></pre></td></tr></table></figure>
-<p>因为1=1为真，且where语句<code>id=1</code>也为真，所以页面会返回与id=1相同的结果。<br>当传入的ID参数为<code>and 1=2</code>时，由于1=2不成立，所以返回假，页面就会返回与id=1不同的结果。<br>由此可以初步判断ID参数存在SQL注入漏洞，攻击者可以进一步拼接SQL语句进行攻击，致使数据库信息泄露，甚至进一步获取服务器权限等。</p>
-</li>
-</ul>
-<h1 id="与MySQL注入相关的知识点"><a href="#与MySQL注入相关的知识点" class="headerlink" title="与MySQL注入相关的知识点"></a>与MySQL注入相关的知识点</h1><p><strong>在MySQL5.0版本后，MySQL默认在数据库中存放一个“information_schema”的数据库</strong></p>
-<h2 id="该库有三表，一定要牢记"><a href="#该库有三表，一定要牢记" class="headerlink" title="该库有三表，一定要牢记"></a>该库有三表，一定要牢记</h2><ul>
-<li><strong>SCHEMATA表</strong><br>存储该用户创建的所有数据库的库名。我们需要记住该表中记录数据库库名的字段名为<code>SCHEMA_NAME</code></li>
-<li><strong>TABLES</strong><br>存储该用户创建的所有数据库的库名和表名，如图4-2所示。我们需要记住该表中记录数据库库名和表名的字段名分别为<code>TABLE_SCHEMA</code>和<code>TABLE_NAME</code></li>
-<li><strong>COLUMNS</strong><br>存储还用户的所有数据库的库名、表名和字段名，我们需要记住该表中记录数据库库名、表名和字段名的字段名为<code>TABLE_SCHEMA</code>、<code>TABLE_NAME</code>和<code>COLUMN_NAME</code>。</li>
-</ul>
-<h2 id="常用的MySQL查询语句和函数如下所示"><a href="#常用的MySQL查询语句和函数如下所示" class="headerlink" title="常用的MySQL查询语句和函数如下所示"></a>常用的MySQL查询语句和函数如下所示</h2><ol>
-<li>MySQL查询语句<br>在不知道任何条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名</code><br>在知道一条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件的字段名=&#39;已知条件的值&#39;</code><br>在知道两条已知条件时，语句如下所示。<br><code>SELECT 要查询的字段名 FROM 库名.表名 WHERE 已知条件1的字段名=&#39;已知条件1的值&#39; AND 已知条件2的字段名=&#39;已知条件2的值&#39;</code></li>
-<li>limit的用法<br>limit的使用格式为limit m,n，其中m是指记录开始的位置，从0开始，表示第一条记录；n是指取n条记录。<br>例如<code>limit 0,1</code>表示从第一条记录开始，取一条记录。</li>
-<li>需要记住的几个函数<ul>
-<li>database(): 当前网站使用的数据库。</li>
-<li>version(): 当前MySQL的版本。</li>
-<li>user(): 当前MySQL的用户。</li>
-</ul>
-</li>
-<li>注释符<br>在MySQL中，常见注释符的表达方式：<code>#</code>或<code>--空格</code>或<code>/**/</code>。</li>
-<li>内联注释<br>内联注释的形式:<code>/*!code*/</code>。内联注释可以用于整个SQL语句中，用来执行我们的SQL语句，如<br><code>index.php?id=15 /*!UNION*/ /*!SELECT*/ 1,2,3。</code></li>
-</ol>
-<hr>]]></content>
-      <categories>
-        <category>web漏洞</category>
-      </categories>
-      <tags>
-        <tag>SQL注入</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>szsec-2020-萌新篇</title>
-    <url>/2030/10/17/szsec-2020-%E8%90%8C%E6%96%B0%E7%AF%87/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p><strong>首先，感谢大家对SZSEC的支持，为了帮助大家更好的入门，现在整理材料如下</strong><br> <a href="https://note.youdao.com/ynoteshare1/index.html?id=61bf5e8028ed099753c92823af90fbe5&type=note">师兄大作-CTF入门介绍</a><br> <a href="https://adworld.xctf.org.cn/task">CTF做题网站-攻防世界</a><br> <a href="https://ctf.bugku.com/">CTF做题网站-bug库</a><br> <strong>还有更多等待你的发现…</strong></p>
-</blockquote>
-<a id="more"></a>
-
-<hr>
-
-<h1 id="另外！下面是老萌新们的建议，望采纳"><a href="#另外！下面是老萌新们的建议，望采纳" class="headerlink" title="另外！下面是老萌新们的建议，望采纳"></a>另外！下面是老萌新们的建议，望采纳</h1><ol>
-<li>做ctf题是最好使用火狐浏览器或者谷歌浏览器</li>
-<li>入门可以选择性练习misc，web类题目。</li>
-<li>要学习编程二进制类的同学可以选择pwn和reverse题目</li>
-<li>想要接触解码类题目可以选择crypto类题目。</li>
-<li>五种类型的题目都可以做，不过主攻的方向不同涉及的知识面不同。<hr>
-
-</li>
-</ol>
-<h1 id="怎么做web题呢？"><a href="#怎么做web题呢？" class="headerlink" title="怎么做web题呢？"></a>怎么做web题呢？</h1><p>在ctf比赛中，web为最重要的组成部分。<br>题目在浏览器之中都能够找到答案，一开始不会做，可以边在浏览器中边找资料边做，遇到不会的知识点或者看不懂的地方也可以在浏览器中查找，做题需要用到的软件可以在网上下载到。东墩的同学，师兄会找个时间过去，到时候可以将一些工具分享给大家，在本部计网的同学可以拿U盘来安全室找师兄拷贝工具，不懂的问题可以在群里提问。ctf只能通过不断做题的积累来得到提升。</p>
-<hr>
-
-<h1 id="最后："><a href="#最后：" class="headerlink" title="最后："></a>最后：</h1><p> <strong>各位：前程似锦!</strong></p>
-]]></content>
-      <categories>
-        <category>导入篇</category>
-      </categories>
-      <tags>
-        <tag>导入篇</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2020kali安装</title>
     <url>/2020/09/27/kali%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>kali作为信安之路的最强帮手，内置了许多的黑客工具，学习怎么安装，自然也是尤其重要，这里主要讲解的是kali在虚拟机的安装，并不推荐安装在物理机上。切记——以白不以黑。</p>
@@ -310,6 +279,37 @@
       </categories>
       <tags>
         <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>szsec-2020-萌新篇</title>
+    <url>/2030/10/17/szsec-2020-%E8%90%8C%E6%96%B0%E7%AF%87/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p><strong>首先，感谢大家对SZSEC的支持，为了帮助大家更好的入门，现在整理材料如下</strong><br> <a href="https://note.youdao.com/ynoteshare1/index.html?id=61bf5e8028ed099753c92823af90fbe5&type=note">师兄大作-CTF入门介绍</a><br> <a href="https://adworld.xctf.org.cn/task">CTF做题网站-攻防世界</a><br> <a href="https://ctf.bugku.com/">CTF做题网站-bug库</a><br> <strong>还有更多等待你的发现…</strong></p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+
+<h1 id="另外！下面是老萌新们的建议，望采纳"><a href="#另外！下面是老萌新们的建议，望采纳" class="headerlink" title="另外！下面是老萌新们的建议，望采纳"></a>另外！下面是老萌新们的建议，望采纳</h1><ol>
+<li>做ctf题是最好使用火狐浏览器或者谷歌浏览器</li>
+<li>入门可以选择性练习misc，web类题目。</li>
+<li>要学习编程二进制类的同学可以选择pwn和reverse题目</li>
+<li>想要接触解码类题目可以选择crypto类题目。</li>
+<li>五种类型的题目都可以做，不过主攻的方向不同涉及的知识面不同。<hr>
+
+</li>
+</ol>
+<h1 id="怎么做web题呢？"><a href="#怎么做web题呢？" class="headerlink" title="怎么做web题呢？"></a>怎么做web题呢？</h1><p>在ctf比赛中，web为最重要的组成部分。<br>题目在浏览器之中都能够找到答案，一开始不会做，可以边在浏览器中边找资料边做，遇到不会的知识点或者看不懂的地方也可以在浏览器中查找，做题需要用到的软件可以在网上下载到。东墩的同学，师兄会找个时间过去，到时候可以将一些工具分享给大家，在本部计网的同学可以拿U盘来安全室找师兄拷贝工具，不懂的问题可以在群里提问。ctf只能通过不断做题的积累来得到提升。</p>
+<hr>
+
+<h1 id="最后："><a href="#最后：" class="headerlink" title="最后："></a>最后：</h1><p> <strong>各位：前程似锦!</strong></p>
+]]></content>
+      <categories>
+        <category>导入篇</category>
+      </categories>
+      <tags>
+        <tag>导入篇</tag>
       </tags>
   </entry>
   <entry>

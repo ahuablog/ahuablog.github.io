@@ -966,7 +966,7 @@ pre .javascript .function {
 }
 .site-meta {
   flex-grow: 1;
-  text-align: left;
+  text-align: center;
 }
 @media (max-width: 767px) {
   .site-meta {
@@ -1105,7 +1105,8 @@ pre .javascript .function {
   opacity: 0;
 }
 .sidebar {
-  background: #222;
+  background: url("/images/04.jpg");
+  opacity: 0.8;
   bottom: 0;
   box-shadow: inset 0 2px 6px #000;
   position: fixed;
@@ -1169,7 +1170,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff0554;
+  background: #a403ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1541,7 +1542,14 @@ pre .javascript .function {
   margin-top: 40px;
   text-align: center;
 }
-.use-motion .post-block,
+.use-motion .post_block {
+  opacity: 0.6;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
 .use-motion .pagination,
 .use-motion .comments {
   opacity: 0;
@@ -2241,7 +2249,7 @@ ul.breadcrumb li + li:last-child {
   margin: auto;
 }
 hr {
-  height: 2px;
+  height: 4px;
   margin: 20px 0;
 }
 .btn {
@@ -2282,7 +2290,7 @@ hr {
   padding: 10px 0;
 }
 .footer-inner {
-  text-align: left;
+  text-align: center;
 }
 @media (max-width: 767px) {
   .footer-inner {
@@ -2348,6 +2356,29 @@ hr {
 .site-subtitle {
   display: none;
 }
+.post {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+.back-to-top {
+  right: 60px;
+  width: 70px;
+  height: 900px;
+  top: -900px;
+  bottom: unset;
+  transition: all 0.5s ease-in-out;
+  background: url("/images/scroll.png");
+}
+.back-to-top > i {
+  display: none;
+}
+.back-to-top.back-to-top-on {
+  bottom: unset;
+  top: calc(100vh - 900px - 200px);
+}
 .site-nav {
   flex-grow: 1;
 }
@@ -2357,7 +2388,7 @@ hr {
   }
 }
 .menu {
-  margin: 0;
+  margin: 5;
 }
 .menu .menu-item {
   margin: 0;
@@ -2369,8 +2400,8 @@ hr {
 }
 .menu .menu-item a,
 .menu .menu-item span.exturl {
-  border-radius: 2px;
-  padding: 0 10px;
+  border-radius: 10px;
+  padding: 0 15px;
   transition-property: background;
 }
 @media (max-width: 767px) {
@@ -2388,7 +2419,7 @@ hr {
 }
 .posts-expand.index .post-title,
 .posts-expand.index .post-meta {
-  text-align: left;
+  text-align: center;
 }
 @media (max-width: 767px) {
   .posts-expand.index .post-title,
